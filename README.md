@@ -8,7 +8,7 @@ to take a rest after you play for a long while.
 > NOTE: This mod is still in dev, so there is not a release now.
 
 ### From release
-You can download this mod from [GitHub Releases](releases).
+You can download this mod from [GitHub Releases](https://github.com/lzm222/TimeToRest/releases).
 
 ### Build from source code
 1. Make sure you have Java version 21 or above installed.
