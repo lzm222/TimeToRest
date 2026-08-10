@@ -1,25 +1,30 @@
+# Time To Rest
 
-Installation information
-=======
+## Description
+This is a Minecraft mod running on NeoForge loader which to remind you
+to take a rest after you play for a long while.
 
-This template repository can be directly cloned to get you started with a new
-mod. Simply create a new repository cloned from this one, by following the
-instructions provided by [GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
+## Download
+> NOTE: This mod is still in dev, so there is not a release now.
 
-Once you have your clone, simply open the repository in the IDE of your choice. The usual recommendation for an IDE is either IntelliJ IDEA or Eclipse.
+### From release
+You can download this mod from [GitHub Releases](releases).
 
-If at any point you are missing libraries in your IDE, or you've run into problems you can
-run `gradlew --refresh-dependencies` to refresh the local cache. `gradlew clean` to reset everything 
-{this does not affect your code} and then start the process again.
+### Build from source code
+1. Make sure you have Java version 21 or above installed.
+2. Clone this repository  
 
-Mapping Names:
-============
-By default, the MDK is configured to use the official mapping names from Mojang for methods and fields 
-in the Minecraft codebase. These names are covered by a specific license. All modders should be aware of this
-license. For the latest license text, refer to the mapping file itself, or the reference copy here:
-https://github.com/NeoForged/NeoForm/blob/main/Mojang.md
+    ```shell
+    git clone github.com/lzm222/TimeToRest
+    ```
 
-Additional Resources: 
-==========
-Community Documentation: https://docs.neoforged.net/  
-NeoForged Discord: https://discord.neoforged.net/
+3. Run Gradle build command  
+
+    ```shell
+    cd TimeToRest
+    ./gradlew build
+    ```
+
+## License
+[MIT License](LICENSE)
+

@@ -33,7 +33,7 @@ displayName="${mod_name}" #mandatory
 #updateJSONURL="https://change.me.example.invalid/updates.json" #optional
 
 # A URL for the "homepage" for this mod, displayed in the mod UI
-displayURL="https://github.com/lzm222/MDK-1.21.1-ModDevGradle/" #optional
+displayURL="https://github.com/lzm222/TimeToRest/" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
 #logoFile="examplemod.png" #optional
@@ -46,7 +46,8 @@ authors="lzm222"
 
 # The description text for the mod (multi line!) (#mandatory)
 description='''
-Example mod description.
+This is a Minecraft mod running on NeoForge loader which to remind you
+to take a rest after you play for a long while.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.

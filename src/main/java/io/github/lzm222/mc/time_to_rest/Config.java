@@ -1,4 +1,4 @@
-package io.github.lzm222.mc.examplemod;
+package io.github.lzm222.mc.time_to_rest;
 
 import java.util.List;
 
