@@ -13,14 +13,12 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.slf4j.Logger;
 
-import java.time.Instant;
-
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = TimeToRest.MODID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
 @EventBusSubscriber(modid = TimeToRest.MODID, value = Dist.CLIENT)
 public class TimeToRestClient {
-    private static long playerJoinTimeStamp = -1;
+    private static long playerJoinGameTick = -1;
     private static int remindedCount = 1;
     public static final Logger LOGGER = TimeToRest.LOGGER;
 
@@ -33,25 +31,26 @@ public class TimeToRestClient {
     @SubscribeEvent
     static void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
         LOGGER.debug("PlayerLoggedInEvent fired");
-        playerJoinTimeStamp = Instant.now().getEpochSecond();
-        LOGGER.info("JoinTimeStamp has set: {}", playerJoinTimeStamp);
+        playerJoinGameTick = event.getEntity().level().getGameTime();
+        LOGGER.info("JoinTick has set: {}", playerJoinGameTick);
     }
 
     @SubscribeEvent
     static void onPlayerLeaveWorld(PlayerEvent.PlayerLoggedOutEvent event) {
-        playerJoinTimeStamp = -1;
+        playerJoinGameTick = -1;
         remindedCount = 1;
     }
 
     @SubscribeEvent
     static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (playerJoinTimeStamp != -1) {
-            long now = Instant.now().getEpochSecond();
-            long flownTime = now - playerJoinTimeStamp;
+        if (playerJoinGameTick != -1) {
+            long now = event.getEntity().level().getGameTime();
+            long flownTick = now - playerJoinGameTick;
             long setTimeSec = 60;
-            if (flownTime >= setTimeSec*remindedCount) {
-                Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Hey! Take a rest, please!"));
-                LOGGER.debug("remindedCount: {}; fliedTime: {}", remindedCount, flownTime);
+            long setTimeTick = setTimeSec * 20;
+            if (flownTick >= setTimeTick*remindedCount) {
+                Minecraft.getInstance().gui.getChat().addMessage(Component.literal("[Time To Rest]Hey! Take a rest, please!"));
+                LOGGER.debug("remindedCount: {}; flownTick: {}", remindedCount, flownTick);
                 remindedCount++;
             }
         }
