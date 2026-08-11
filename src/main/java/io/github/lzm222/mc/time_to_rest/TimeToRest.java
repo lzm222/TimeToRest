@@ -1,19 +1,16 @@
 package io.github.lzm222.mc.time_to_rest;
 
-import net.neoforged.fml.common.EventBusSubscriber;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.ModContainer;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(TimeToRest.MODID)
-@EventBusSubscriber(modid = TimeToRest.MODID)
+// @EventBusSubscriber(modid = TimeToRest.MODID)
 public class TimeToRest {
     // Define mod id in a common place for everything to reference
     public static final String MODID = "time_to_rest";
@@ -25,12 +22,5 @@ public class TimeToRest {
     public TimeToRest(ModContainer modContainer) {
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-    }
-
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-        // Do something when the server starts
-        LOGGER.debug("server starting...");
     }
 }
