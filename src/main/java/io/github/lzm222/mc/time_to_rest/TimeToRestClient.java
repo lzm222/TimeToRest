@@ -49,10 +49,10 @@ public class TimeToRestClient {
             long now = Instant.now().getEpochSecond();
             long flownTime = now - playerJoinTimeStamp;
             long setTimeSec = 60;
-            if (Math.abs(flownTime-setTimeSec*remindedCount) < 10) {
+            if (flownTime >= setTimeSec*remindedCount) {
                 Minecraft.getInstance().gui.getChat().addMessage(Component.literal("Hey! Take a rest, please!"));
-                remindedCount++;
                 LOGGER.debug("remindedCount: {}; fliedTime: {}", remindedCount, flownTime);
+                remindedCount++;
             }
         }
     }
