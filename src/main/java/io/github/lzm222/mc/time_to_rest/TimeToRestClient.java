@@ -1,5 +1,6 @@
 package io.github.lzm222.mc.time_to_rest;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
@@ -46,10 +47,22 @@ public class TimeToRestClient {
         if (playerJoinGameTick != -1) {
             long now = event.getEntity().level().getGameTime();
             long flownTick = now - playerJoinGameTick;
-            long setTimeSec = 60;
+            long setTimeSec = 10; // TODO 添加到Config
             long setTimeTick = setTimeSec * 20;
             if (flownTick >= setTimeTick*remindedCount) {
-                Minecraft.getInstance().gui.getChat().addMessage(Component.literal("[Time To Rest]Hey! Take a rest, please!"));
+                Minecraft.getInstance().gui.setOverlayMessage(
+                        Component.literal("⏰ Hey! Take a rest, please!") // TODO i18n
+                                .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD),
+                        false
+                );
+                Minecraft.getInstance().gui.getChat().addMessage(
+                        Component.literal("[Time To Rest] ")
+                                .withStyle(ChatFormatting.AQUA)
+                                .append(
+                                        Component.literal("⏰ Hey! Take a rest, please!")
+                                                .withStyle(ChatFormatting.WHITE)
+                                )
+                );
                 LOGGER.debug("remindedCount: {}; flownTick: {}", remindedCount, flownTick);
                 remindedCount++;
             }
