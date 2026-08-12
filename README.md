@@ -5,7 +5,6 @@ This is a Minecraft mod running on NeoForge loader which to remind you
 to take a rest after you play for a long while.
 
 ## Download
-> NOTE: This mod is still in dev, so there is not a release now.
 
 ### From release
 You can download this mod from [GitHub Releases](https://github.com/lzm222/TimeToRest/releases).
