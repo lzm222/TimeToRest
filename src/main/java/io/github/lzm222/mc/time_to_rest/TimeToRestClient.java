@@ -8,6 +8,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
@@ -21,6 +22,7 @@ import org.slf4j.Logger;
 public class TimeToRestClient {
     private static long playerJoinGameTick = -1;
     private static int remindedCount = 1;
+    private static long period = 20 * 60 * 30; // 单位: tick 此处默认为30min
     public static final Logger LOGGER = TimeToRest.LOGGER;
 
     public TimeToRestClient(ModContainer container) {
@@ -29,6 +31,17 @@ public class TimeToRestClient {
         // Do not forget to add translations for your config options to the en_us.json file.
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
+
+    @SubscribeEvent
+    static void onConfigLoading(ModConfigEvent.Loading event) {
+        period = Config.REMINDER_PERIOD.getAsLong() * 20; // 转换为tick
+    }
+
+    @SubscribeEvent
+    static void onConfigChanging(ModConfigEvent.Reloading event) {
+        period = Config.REMINDER_PERIOD.getAsLong() * 20; // 转换为tick
+    }
+
     @SubscribeEvent
     static void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
         LOGGER.debug("PlayerLoggedInEvent fired");
@@ -44,12 +57,10 @@ public class TimeToRestClient {
 
     @SubscribeEvent
     static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (playerJoinGameTick != -1) {
+        if (Config.ENABLED.getAsBoolean() && playerJoinGameTick != -1) {
             long now = event.getEntity().level().getGameTime();
             long flownTick = now - playerJoinGameTick;
-            long setTimeSec = 10; // TODO 添加到Config
-            long setTimeTick = setTimeSec * 20;
-            if (flownTick >= setTimeTick*remindedCount) {
+            if (flownTick >= period*remindedCount) {
                 Minecraft.getInstance().gui.setOverlayMessage(
                         Component.literal("⏰ Hey! Take a rest, please!") // TODO i18n
                                 .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD),
@@ -63,6 +74,7 @@ public class TimeToRestClient {
                                                 .withStyle(ChatFormatting.WHITE)
                                 )
                 );
+                // TODO 添加提示音
                 LOGGER.debug("remindedCount: {}; flownTick: {}", remindedCount, flownTick);
                 remindedCount++;
             }
