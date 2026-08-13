@@ -15,7 +15,7 @@ public class Config {
     public static final ModConfigSpec.LongValue REMINDER_PERIOD = BUILDER // 单位: 秒 TODO 增加时分秒多种单位
             .comment("The seconds between two reminders")
             .worldRestart()
-            .defineInRange("reminderPeriod", 30 * 60, 10, Long.MAX_VALUE / 20);
+            .defineInRange("reminder_period", 30 * 60, 10, Long.MAX_VALUE / 20);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 }
