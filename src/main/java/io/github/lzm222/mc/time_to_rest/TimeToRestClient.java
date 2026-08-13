@@ -1,5 +1,6 @@
 package io.github.lzm222.mc.time_to_rest;
 
+import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -8,6 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -15,20 +17,18 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.slf4j.Logger;
 
-// This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = TimeToRest.MODID, dist = Dist.CLIENT)
-// You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = TimeToRest.MODID, value = Dist.CLIENT)
+@Mod(value = TimeToRestClient.MODID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = TimeToRestClient.MODID, value = Dist.CLIENT)
 public class TimeToRestClient {
+    public static final String MODID = "time_to_rest";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
     private static long playerJoinGameTick = -1;
     private static int remindedCount = 1;
     private static long period = 20 * 60 * 30; // 单位: tick 此处默认为30min
-    public static final Logger LOGGER = TimeToRest.LOGGER;
 
     public TimeToRestClient(ModContainer container) {
-        // Allows NeoForge to create a config screen for this mod's configs.
-        // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.
-        // Do not forget to add translations for your config options to the en_us.json file.
+        container.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
 
@@ -60,7 +60,7 @@ public class TimeToRestClient {
         if (Config.ENABLED.getAsBoolean() && playerJoinGameTick != -1) {
             long now = event.getEntity().level().getGameTime();
             long flownTick = now - playerJoinGameTick;
-            if (flownTick >= period*remindedCount) {
+            if (flownTick >= period * remindedCount) {
                 Minecraft.getInstance().gui.setOverlayMessage(
                         Component.literal("⏰ Hey! Take a rest, please!") // TODO i18n
                                 .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD),
