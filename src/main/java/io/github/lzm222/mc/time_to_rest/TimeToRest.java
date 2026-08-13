@@ -12,10 +12,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.slf4j.Logger;
 
 @Mod(value = TimeToRest.MODID, dist = Dist.CLIENT)
@@ -59,9 +59,12 @@ public class TimeToRest {
     }
 
     @SubscribeEvent
-    static void onPlayerTick(PlayerTickEvent.Post event) {
-        if (Config.ENABLED.getAsBoolean() && playerJoinGameTick != -1) {
-            long now = event.getEntity().level().getGameTime();
+    static void onClientTick(ClientTickEvent.Post event) {
+        if (Config.ENABLED.getAsBoolean()
+                && Minecraft.getInstance().level != null
+                && playerJoinGameTick != -1
+        ) {
+            long now = Minecraft.getInstance().level.getGameTime();
             long flownTick = now - playerJoinGameTick;
             if (flownTick >= period * remindedCount) {
                 Minecraft.getInstance().gui.setOverlayMessage(
