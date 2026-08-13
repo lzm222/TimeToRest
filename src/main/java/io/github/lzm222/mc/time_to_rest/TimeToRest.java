@@ -3,6 +3,7 @@ package io.github.lzm222.mc.time_to_rest;
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -45,12 +46,14 @@ public class TimeToRest {
     @SubscribeEvent
     static void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
         LOGGER.debug("PlayerLoggedInEvent fired");
-        playerJoinGameTick = event.getEntity().level().getGameTime(); // FIXME 多人游戏可能导致计数异常
+        if (!(event.getEntity() instanceof LocalPlayer)) return; // 确保是本地玩家
+        playerJoinGameTick = event.getEntity().level().getGameTime();
         LOGGER.info("JoinTick has set: {}", playerJoinGameTick);
     }
 
     @SubscribeEvent
     static void onPlayerLeaveWorld(PlayerEvent.PlayerLoggedOutEvent event) {
+        if (!(event.getEntity() instanceof LocalPlayer)) return; // 确保是本地玩家
         playerJoinGameTick = -1;
         remindedCount = 1;
     }
