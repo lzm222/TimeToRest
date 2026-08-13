@@ -17,9 +17,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.slf4j.Logger;
 
-@Mod(value = TimeToRestClient.MODID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = TimeToRestClient.MODID, value = Dist.CLIENT)
-public class TimeToRestClient {
+@Mod(value = TimeToRest.MODID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = TimeToRest.MODID, value = Dist.CLIENT)
+public class TimeToRest {
     public static final String MODID = "time_to_rest";
     public static final Logger LOGGER = LogUtils.getLogger();
 
@@ -27,7 +27,7 @@ public class TimeToRestClient {
     private static int remindedCount = 1;
     private static long period = 20 * 60 * 30; // 单位: tick 此处默认为30min
 
-    public TimeToRestClient(ModContainer container) {
+    public TimeToRest(ModContainer container) {
         container.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
     }
@@ -45,7 +45,7 @@ public class TimeToRestClient {
     @SubscribeEvent
     static void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
         LOGGER.debug("PlayerLoggedInEvent fired");
-        playerJoinGameTick = event.getEntity().level().getGameTime();
+        playerJoinGameTick = event.getEntity().level().getGameTime(); // FIXME 多人游戏可能导致计数异常
         LOGGER.info("JoinTick has set: {}", playerJoinGameTick);
     }
 
