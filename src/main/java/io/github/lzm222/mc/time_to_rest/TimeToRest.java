@@ -27,6 +27,8 @@ public class TimeToRest {
     private static int remindedCount = 1;
     private static long period = 20 * 60 * 30; // 单位: tick 此处默认为30min
 
+    private static boolean flag = false; // 用于判断是否为首个有效tick 具体见#onClientTick
+
     public TimeToRest(ModContainer container) {
         container.registerConfig(ModConfig.Type.CLIENT, Config.SPEC);
         container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
@@ -45,8 +47,7 @@ public class TimeToRest {
     @SubscribeEvent
     static void onPlayerJoinWorld(ClientPlayerNetworkEvent.LoggingIn event) {
         LOGGER.debug("PlayerLoggingIn");
-        playerJoinGameTick = event.getPlayer().level().getGameTime();
-        LOGGER.info("JoinTick has set: {}", playerJoinGameTick);
+        flag = true;
     }
 
     @SubscribeEvent
@@ -57,9 +58,18 @@ public class TimeToRest {
 
     @SubscribeEvent
     static void onClientTick(ClientTickEvent.Post event) {
+        if (flag) { // 设置加入tick
+            var level = Minecraft.getInstance().level;
+            if (level != null && level.getGameTime() > 0) { // 获取第一个有效游戏内tick
+                playerJoinGameTick = level.getGameTime();
+                flag = false;
+                LOGGER.info("playerJoinTick has set: {}", playerJoinGameTick);
+            }
+        }
+
         if (Config.ENABLED.getAsBoolean()
-                && Minecraft.getInstance().level != null
                 && playerJoinGameTick != -1
+                && Minecraft.getInstance().level != null
         ) {
             long now = Minecraft.getInstance().level.getGameTime();
             long flownTick = now - playerJoinGameTick;
@@ -78,7 +88,7 @@ public class TimeToRest {
                                 )
                 );
                 // TODO 添加提示音
-                LOGGER.debug("remindedCount: {}; flownTick: {}", remindedCount, flownTick);
+                LOGGER.info("period: {}; remindedCount: {}; flownTick: {}", period, remindedCount, flownTick);
                 remindedCount++;
             }
         }
