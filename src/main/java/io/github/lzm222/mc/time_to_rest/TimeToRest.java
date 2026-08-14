@@ -3,7 +3,6 @@ package io.github.lzm222.mc.time_to_rest;
 import com.mojang.logging.LogUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.chat.Component;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -12,10 +11,10 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import org.slf4j.Logger;
 
 @Mod(value = TimeToRest.MODID, dist = Dist.CLIENT)
@@ -44,16 +43,14 @@ public class TimeToRest {
     }
 
     @SubscribeEvent
-    static void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent event) {
-        LOGGER.debug("PlayerLoggedInEvent fired");
-        if (!(event.getEntity() instanceof LocalPlayer)) return; // 确保是本地玩家
-        playerJoinGameTick = event.getEntity().level().getGameTime();
+    static void onPlayerJoinWorld(ClientPlayerNetworkEvent.LoggingIn event) {
+        LOGGER.debug("PlayerLoggingIn");
+        playerJoinGameTick = event.getPlayer().level().getGameTime();
         LOGGER.info("JoinTick has set: {}", playerJoinGameTick);
     }
 
     @SubscribeEvent
-    static void onPlayerLeaveWorld(PlayerEvent.PlayerLoggedOutEvent event) {
-        if (!(event.getEntity() instanceof LocalPlayer)) return; // 确保是本地玩家
+    static void onPlayerLeaveWorld(ClientPlayerNetworkEvent.LoggingOut event) {
         playerJoinGameTick = -1;
         remindedCount = 1;
     }
