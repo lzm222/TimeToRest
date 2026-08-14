@@ -16,5 +16,6 @@ public class TTLanguageProvider extends LanguageProvider {
         add(TTLanguageKeys.Config.TITLE, "Time To Rest Config");
         add(TTLanguageKeys.Config.ENABLED_TIP, "Whether to enable the mod.");
         add(TTLanguageKeys.Config.REMINDER_PERIOD_TIP, "The reminder period. \nUnit: seconds");
+        add(TTLanguageKeys.REMINDER_TEXT, "⏰ Hey! Take a rest, please!");
     }
 }

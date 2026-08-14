@@ -75,7 +75,7 @@ public class TimeToRest {
             long flownTick = now - playerJoinGameTick;
             if (flownTick >= period * remindedCount) {
                 Minecraft.getInstance().gui.setOverlayMessage(
-                        Component.literal("⏰ Hey! Take a rest, please!") // TODO i18n
+                        Component.translatable(TTLanguageKeys.REMINDER_TEXT)
                                 .withStyle(ChatFormatting.GOLD, ChatFormatting.BOLD),
                         false
                 );
@@ -83,7 +83,7 @@ public class TimeToRest {
                         Component.literal("[Time To Rest] ")
                                 .withStyle(ChatFormatting.AQUA)
                                 .append(
-                                        Component.literal("⏰ Hey! Take a rest, please!")
+                                        Component.translatable(TTLanguageKeys.REMINDER_TEXT)
                                                 .withStyle(ChatFormatting.WHITE)
                                 )
                 );

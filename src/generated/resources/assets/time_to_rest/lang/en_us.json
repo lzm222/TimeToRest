@@ -3,5 +3,6 @@
   "time_to_rest.configuration.enabled.tooltip": "Whether to enable the mod.",
   "time_to_rest.configuration.reminder_period": "Reminder Period",
   "time_to_rest.configuration.reminder_period.tooltip": "The reminder period. \nUnit: seconds",
-  "time_to_rest.configuration.title": "Time To Rest Config"
+  "time_to_rest.configuration.title": "Time To Rest Config",
+  "time_to_rest.reminder_text": "⏰ Hey! Take a rest, please!"
 }
