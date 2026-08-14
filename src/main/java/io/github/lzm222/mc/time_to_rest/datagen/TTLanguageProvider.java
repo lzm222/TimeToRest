@@ -10,7 +10,7 @@ public class TTLanguageProvider extends LanguageProvider {
     TTLanguageProvider(PackOutput output) { super(output, TimeToRest.MODID, "en_us"); }
 
     @Override
-    protected void addTranslations() { // TODO DataGen并测试翻译
+    protected void addTranslations() {
         add(TTLanguageKeys.Config.ENABLED, "Enabled");
         add(TTLanguageKeys.Config.REMINDER_PERIOD, "Reminder Period");
         add(TTLanguageKeys.Config.TITLE, "Time To Rest Config");
