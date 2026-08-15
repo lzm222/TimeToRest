@@ -1,0 +1,8 @@
+{
+  "time_to_rest.configuration.enabled": "启用",
+  "time_to_rest.configuration.enabled.tooltip": "是否启用模组",
+  "time_to_rest.configuration.reminder_period": "提醒周期",
+  "time_to_rest.configuration.reminder_period.tooltip": "提醒周期 \n单位: 秒",
+  "time_to_rest.configuration.title": "Time To Rest 模组配置",
+  "time_to_rest.reminder_text": "⏰ Hey bro! 你该休息了!"
+}

@@ -15,7 +15,11 @@ public class DataGen {
         PackOutput output = generator.getPackOutput();
         generator.addProvider(
                 event.includeClient(),
-                new TTLanguageProvider(output)
+                new TTLanguageProvider.EN_US(output)
+        );
+        generator.addProvider(
+                event.includeClient(),
+                new TTLanguageProvider.ZH_CN(output)
         );
     }
 }
