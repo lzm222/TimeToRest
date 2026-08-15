@@ -1,5 +1,7 @@
 # Time To Rest
 
+<img alt="Time To Rest Logo" height="256" src="src/main/resources/logo.png" width="256"/>
+
 ## Description
 This is a Minecraft mod running on NeoForge loader which to remind you
 to take a rest after you play for a long while.
