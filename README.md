@@ -1,6 +1,6 @@
 # Time To Rest
 
-<img alt="Time To Rest Logo" height="256" src="neoforge/src/main/resources/logo.png" width="256"/>
+<img alt="Time To Rest Logo" height="256" src="common/src/main/resources/logo.png" width="256"/>
 
 ## Description
 This is a Minecraft mod running on NeoForge loader which to remind you
