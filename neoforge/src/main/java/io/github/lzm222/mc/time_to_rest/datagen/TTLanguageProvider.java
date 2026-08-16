@@ -1,14 +1,14 @@
 package io.github.lzm222.mc.time_to_rest.datagen;
 
 import io.github.lzm222.mc.time_to_rest.TTLanguageKeys;
-import io.github.lzm222.mc.time_to_rest.TimeToRest;
+import io.github.lzm222.mc.time_to_rest.TimeToRestCommon;
 import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 
 
 public abstract class TTLanguageProvider {
     public static class EN_US extends LanguageProvider {
-        EN_US(PackOutput output) { super(output, TimeToRest.MODID, "en_us"); }
+        EN_US(PackOutput output) { super(output, TimeToRestCommon.MODID, "en_us"); }
 
         @Override
         protected void addTranslations() {
@@ -21,7 +21,7 @@ public abstract class TTLanguageProvider {
         }
     }
     public static class ZH_CN extends LanguageProvider {
-        ZH_CN(PackOutput output) { super(output, TimeToRest.MODID, "zh_cn"); }
+        ZH_CN(PackOutput output) { super(output, TimeToRestCommon.MODID, "zh_cn"); }
 
         @Override
         protected void addTranslations() {

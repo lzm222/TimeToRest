@@ -1,7 +1,6 @@
 plugins {
-    id 'java-library'
-    id 'maven-publish'
     id 'idea'
+    id 'net.neoforged.moddev' version '2.0.142' apply false
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -13,25 +12,13 @@ tasks.named('wrapper', Wrapper).configure {
     distributionType = Wrapper.DistributionType.BIN
 }
 
-
-base {
-    archivesName = mod_id
-}
-
-// Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
-
-// Example configuration to allow publishing using the maven-publish plugin
-publishing {
-    publications {
-        register('mavenJava', MavenPublication) {
-            from components.java
-        }
-    }
-    repositories {
-        maven {
-            url "file://${project.projectDir}/repo"
-        }
+subprojects {
+    apply plugin: 'java-library'
+    // Mojang ships Java 21 to end users in 1.21.1, so mods should target Java 21.
+    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+    // 设置archivesName
+    base {
+        archivesName = mod_id
     }
 }
 

@@ -23,6 +23,6 @@ public final class TTLanguageKeys {
     }
 
     private static String genCommon(String key) {
-        return TimeToRest.MODID + "." + key;
+        return TimeToRestCommon.MODID + "." + key;
     }
 }

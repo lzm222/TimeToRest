@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.142'
+    id 'net.neoforged.moddev'
 }
 
 version = mod_version
@@ -88,6 +88,7 @@ neoForge {
         // multi mod projects should define one per mod
         "${mod_id}" {
             sourceSet(sourceSets.main)
+            sourceSet project(":common").sourceSets.main
         }
     }
 }
@@ -122,6 +123,7 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+    implementation project(':common')
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -147,4 +149,9 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
 sourceSets.main.resources.srcDir generateModMetadata
 // To avoid having to run "generateModMetadata" manually, make it run on every project reload
 neoForge.ideSyncTask generateModMetadata
+
+tasks.named("jar", Jar) {
+    from project(":common").sourceSets.main.output
+    archiveClassifier = "neoforge"
+}
 
