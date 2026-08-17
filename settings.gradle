@@ -12,3 +12,4 @@ plugins {
 
 include 'neoforge'
 include 'common'
+include 'datagen'
