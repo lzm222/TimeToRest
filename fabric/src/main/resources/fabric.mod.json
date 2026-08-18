@@ -1,0 +1,28 @@
+{
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"version": "${mod_version}",
+	"name": "${mod_name}",
+	"description": "This is a Minecraft mod to remind you to \ntake a rest after you play for a long while.",
+	"authors": [
+		"lzm222"
+	],
+	"contact": {
+		"homepage": "https://github.com/lzm222/TimeToRest/",
+		"sources": "https://github.com/lzm222/TimeToRest/issues/"
+	},
+	"license": "${mod_license}",
+	"icon": "icon.png",
+	"environment": "client",
+	"entrypoints": {
+		"client": [
+			"io.github.lzm222.mc.time_to_rest.TimeToRestFabric"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
