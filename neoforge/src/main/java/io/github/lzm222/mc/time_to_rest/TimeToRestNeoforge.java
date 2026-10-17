@@ -21,10 +21,10 @@ public class TimeToRestNeoforge {
     }
 
     private static void loadConfig() {
-        var period = Config.REMINDER_PERIOD.getAsLong() * 20; // 转换为tick
-        var enabled = Config.ENABLED.getAsBoolean();
-        TimeToRestCommon.setPeriod(period);
-        TimeToRestCommon.setEnabled(enabled);
+        TimeToRestCommon.applyConfig(
+                Config.ENABLED.getAsBoolean(),
+                Config.REMINDER_PERIOD.getAsLong()
+        );
     }
 
     @SubscribeEvent
