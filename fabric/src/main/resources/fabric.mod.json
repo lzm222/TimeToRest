@@ -12,17 +12,24 @@
 		"sources": "https://github.com/lzm222/TimeToRest/issues/"
 	},
 	"license": "${mod_license}",
-	"icon": "icon.png",
+	"icon": "logo.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
 			"io.github.lzm222.mc.time_to_rest.TimeToRestFabric"
+		],
+		"modmenu": [
+			"io.github.lzm222.mc.time_to_rest.ModMenuIntegration"
 		]
 	},
 	"depends": {
 		"fabricloader": ">=0.19.3",
 		"minecraft": "~1.21.1",
 		"java": ">=21",
-		"fabric-api": "*"
+		"fabric-api": "*",
+		"cloth-config": ">=15.0.140"
+	},
+	"suggests": {
+		"modmenu": ">=11.0.0"
 	}
 }

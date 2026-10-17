@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 public class TimeToRestFabric implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		TimeToRestCommon.applyConfig(true, 60);
+		FabricConfig.init();
 
 		ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> {
 			TimeToRestCommon.setFlag(true);

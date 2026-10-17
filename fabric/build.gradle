@@ -25,6 +25,8 @@ repositories {
     maven { url 'https://maven.aliyun.com/nexus/content/groups/public' }
     maven { url 'https://repository.hanbings.io/proxy' }
     maven { url 'https://maven.parchmentmc.org' }
+    maven { url 'https://maven.shedaniel.me/' }
+    maven { url 'https://maven.terraformersmc.com/releases/' }
 }
 
 loom {
@@ -61,6 +63,13 @@ dependencies {
 
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
+
+    // Cloth Config 负责配置存储与配置界面，通过 Jar-in-Jar 内置，用户无需单独安装。
+    modImplementation "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+    include "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
+
+    // Mod Menu 仅用于在模组列表提供配置入口，保持可选依赖。
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
     implementation project(":common")
 }
