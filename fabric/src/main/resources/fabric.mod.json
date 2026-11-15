@@ -12,7 +12,7 @@
 		"sources": "https://github.com/lzm222/TimeToRest/issues/"
 	},
 	"license": "${mod_license}",
-	"icon": "logo.png",
+	"icon": "icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
