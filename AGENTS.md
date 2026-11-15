@@ -32,3 +32,4 @@ Time To Rest：Minecraft 1.21.1 纯客户端模组（提醒玩家休息），Gra
 - 两端配置保存后立即生效，无需重进世界。配置变更通过 `TimeToRestCommon.applyConfig` 重排下一次提醒，因此调小周期不会补发历史提醒。
 - 计时使用绝对 `nextReminderTick`：进世界后由 `flag` 捕获首个有效 tick 初始化，触发提醒后或配置变更时从当前时刻重新排期；不要再改回“首次 tick + 周期 × 次数”的写法（会因调小周期而连续提醒）。
 - Fabric 的 Cloth Config 版本由 `gradle.properties` 提供并被 `fabric/build.gradle` 的 `include` 使用，`fabric.mod.json` 的 `depends` 里还有一份版本下限，升级时两处要一起改。
+- NEVER 使用git push(opencode可能无法输入ssh key而卡住)
