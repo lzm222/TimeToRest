@@ -29,13 +29,12 @@ public final class FabricConfigScreen {
                 .setSaveConsumer(value -> config.enabled = value)
                 .build());
 
-        category.addEntry(entries.startIntSlider(
+        category.addEntry(entries.startIntField(
                         Component.translatable(TTLanguageKeys.Config.REMINDER_PERIOD),
-                        config.reminderPeriod,
-                        FabricConfig.MIN_PERIOD_SECONDS,
-                        FabricConfig.MAX_PERIOD_SECONDS)
+                        config.reminderPeriod)
                 .setDefaultValue(FabricConfig.DEFAULT_PERIOD_SECONDS)
-                .setTextGetter(seconds -> Component.literal(seconds + " s"))
+                .setMin(FabricConfig.MIN_PERIOD_SECONDS)
+                .setMax(FabricConfig.MAX_PERIOD_SECONDS)
                 .setTooltip(Component.translatable(TTLanguageKeys.Config.REMINDER_PERIOD_TIP))
                 .setSaveConsumer(value -> config.reminderPeriod = value)
                 .build());

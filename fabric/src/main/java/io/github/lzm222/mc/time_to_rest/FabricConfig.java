@@ -46,8 +46,9 @@ public class FabricConfig implements ConfigData {
         TimeToRestCommon.applyConfig(config.enabled, config.reminderPeriod);
     }
 
-    /** 防止手改 JSON 写入低于下限的值（Cloth 的滑块范围只约束 UI）。 */
+    /** 防止手改 JSON 或手输数字越界（Cloth 的数字输入框只提示错误，不会截断数值）。 */
     private static void clamp(FabricConfig config) {
-        config.reminderPeriod = Math.max(MIN_PERIOD_SECONDS, config.reminderPeriod);
+        config.reminderPeriod = Math.min(MAX_PERIOD_SECONDS,
+                Math.max(MIN_PERIOD_SECONDS, config.reminderPeriod));
     }
 }
